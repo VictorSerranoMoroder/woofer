@@ -1,7 +1,7 @@
 #pragma once 
 
 #include <QApplication>
-#include <qapplication.h>
+#include <app/ui/Controller.hpp>
 
 namespace app 
 {
@@ -21,5 +21,9 @@ namespace app
         MainApplication(MainApplication&&) = delete;
         MainApplication& operator=(MainApplication&&) = delete;
     
+
+        private:
+
+        ui::Controller controller_;
     };
 }
