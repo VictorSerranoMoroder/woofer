@@ -1,0 +1,41 @@
+{
+    "name": "Qt/C++ Container",
+    "image": "qt6_develop:latest",
+
+    // Give container same UID/GID as host user to access Wayland/X11 sockets
+    "runArgs": [
+        "--user=${localEnv:UID}:${localEnv:GID}",
+        "--group-add=video",
+        "--device=/dev/dri",
+
+        // Mount Wayland socket
+        "--volume=${localEnv:XDG_RUNTIME_DIR}/${localEnv:WAYLAND_DISPLAY}:${localEnv:XDG_RUNTIME_DIR}/${localEnv:WAYLAND_DISPLAY}",
+
+        // Mount X11 socket
+        "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+
+        // Mount DBus session bus
+        "--volume=/run/user/${localEnv:UID}/bus:/run/user/${localEnv:UID}/bus"
+    ],
+
+    // Pass through display-related env vars
+    "remoteEnv": {
+        "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+        "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+        "DBUS_SESSION_BUS_ADDRESS": "${localEnv:DBUS_SESSION_BUS_ADDRESS}",
+        "DISPLAY": "${localEnv:DISPLAY}"
+    },
+
+    // VS Code C++ extensions
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "llvm-vs-code-extensions.vscode-clangd"
+            ]
+        }
+    },
+
+    // Install Wayland + X11 Qt dependencies automatically
+    "postCreateCommand": "apt-get update && apt-get install -y qt6-wayland libwayland-client0 libwayland-cursor0 libwayland-egl1 libx11-6 libxext6"
+}

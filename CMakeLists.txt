@@ -15,7 +15,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets Qml QuickControls2)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
 
 # Create executable from source file
-add_executable(woofer src/main.cpp)
+add_executable(woofer src/app/MainApplication.cpp)
 
 # Link Qt6 libraries
 target_link_libraries(woofer PRIVATE Qt6::Core Qt6::Widgets Qt6::Qml Qt6::QuickControls2)
@@ -24,7 +24,7 @@ target_link_libraries(woofer PRIVATE Qt6::Core Qt6::Widgets Qt6::Qml Qt6::QuickC
 target_link_libraries(woofer PRIVATE Boost::filesystem Boost::system)
 
 # Include directories (optional, Boost usually adds them)
-target_include_directories(woofer PRIVATE ${Boost_INCLUDE_DIRS})
+target_include_directories(woofer PRIVATE ${Boost_INCLUDE_DIRS} src)
 
 # Enable automatic MOC, UIC, RCC processing by Qt6
 set_target_properties(woofer PROPERTIES
