@@ -1,17 +1,25 @@
 
 #include <app/MainApplication.hpp>
 
+#include <QQmlApplicationEngine>
+#include <QQuickStyle>
 #include <QLabel>
 
 namespace app
 {
     MainApplication::MainApplication(int &argc, char **argv)
-    : QApplication(argc, argv)
+    : QGuiApplication(argc, argv)
     {
-        // Create a simple label window
-        QLabel* label = new QLabel("Hello, Qt!");
-        label->resize(200, 100);
-        label->show();
+
+        QQmlApplicationEngine engine;
+        // Load your QML file
+        engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+        // Set the global style to Material
+        QQuickStyle::setStyle("Material");
+
+        if (!engine.rootObjects().isEmpty())
+            exec();
     }
 
 }

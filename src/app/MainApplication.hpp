@@ -1,6 +1,6 @@
 #pragma once 
 
-#include <QApplication>
+#include <QGuiApplication>
 #include <app/ui/Controller.hpp>
 
 namespace app 
@@ -8,7 +8,7 @@ namespace app
     /// @brief
     ///
     /// @details
-    class MainApplication : public QApplication
+    class MainApplication : public QGuiApplication
     {
         public:
         MainApplication(int &argc, char **argv);

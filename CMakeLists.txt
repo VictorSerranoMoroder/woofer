@@ -14,6 +14,11 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets Qml QuickControls2)
 # Find Boost libraries - adjust components as needed
 find_package(Boost REQUIRED COMPONENTS filesystem system)
 
+
+qt_add_resources(APP_RESOURCES
+    src/app/resources.qrc
+)
+
 # Create executable from source file
 add_executable(woofer 
     src/app/MainApplication.cpp
@@ -21,8 +26,9 @@ add_executable(woofer
     src/app/ui/ViewModel.cpp
     src/infra/elements/Track.cpp
     src/infra/tables/Track.cpp
-    
+    ${APP_RESOURCES}
     )
+
 
 # Link Qt6 libraries
 target_link_libraries(woofer PRIVATE Qt6::Core Qt6::Widgets Qt6::Qml Qt6::QuickControls2)

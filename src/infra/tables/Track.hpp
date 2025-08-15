@@ -7,7 +7,6 @@
 
 namespace infra::tables {
 
-
     enum class TableColumns
     {
         Title,
